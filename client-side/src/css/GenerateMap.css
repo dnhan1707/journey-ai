@@ -1,0 +1,44 @@
+.mapPage {
+    display: grid;
+    grid-template-columns: 35% 65%; /* Define specific widths for the columns */
+    height: 100vh; /* Full viewport height */
+}
+
+.map {
+    grid-column: 1 / 2; /* Place in the first column */
+    width: 100%; /* Full width of the column */
+    height: 100%; /* Full height of the column */
+    overflow: hidden; /* Prevent scrolling in the map section */
+}
+
+.detail_container {
+    grid-column: 2 / 3; /* Place this in the second column */
+    height: 100vh; /* Full viewport height */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.dummy {
+    border-radius: 30px;
+}
+
+/*Responsive grid to row*/
+@media (max-width: 768px) {
+    .mapPage {
+        display: block;
+    }
+
+    .map {
+        width: 100%;
+        height: 30vh;
+        z-index: 10;
+    }
+
+    .detail_container {
+        width: 100%;
+    }
+
+    .dummy {
+        margin-top: 27vh;
+        display: block;
+    }
+}

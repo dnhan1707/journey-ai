@@ -1,0 +1,12 @@
+@media (max-width: 1022px) {
+    .photocomp {
+        display: none;
+    }
+    .back-button {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+
+}

@@ -1,0 +1,39 @@
+.card{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+.location_description{
+    display: flex;
+    flex-direction: column;
+}
+
+.description{
+    font-size: 15px;
+}
+
+.photo-location_image {
+    width: 100%;
+    max-width: 400px; /* Adjust based on your layout */
+    height: auto; /* Maintain aspect ratio */
+    overflow: hidden;
+}
+
+.photo-location_image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* Adjusts how the image fits within the container */
+}
+/*Responsive*/
+@media (max-width: 768px) {
+    .card{
+        display: block;
+    }
+
+    .location_image{
+        max-width: 100%;
+        max-height: 100%;
+    }
+}

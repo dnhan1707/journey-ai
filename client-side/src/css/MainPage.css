@@ -1,0 +1,114 @@
+.mainpage {
+    text-align: center;
+  }
+  
+.mainpage-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .mainpage-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.mainpage-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.mainpage-link {
+  color: #61dafb;
+}
+
+@keyframes mainpage-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loginButt {
+  position: absolute;
+  width: 10rem;
+  height: auto;
+  right: 0;
+  top: 0;
+}
+
+.logo-orange {
+  position: absolute;
+  width: 10rem;
+  height: auto;
+  left: 0;
+  top: 0;
+}
+
+.search-parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide {
+  width: 100%;
+  height: 100%;
+  transform: translateX(-300%);
+}
+
+.landing-icon {
+  width: 50vw;
+  max-width: 470px;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.landing-margin {
+  margin-top: 9vh;
+}
+
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.trip-options {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .trip-options {
+    flex-direction: column;
+    margin: 0 3.5rem 0 3.5rem;
+  }
+  .search-parent {
+    display: block;
+    justify-content: center;
+  }
+}
+
+@media (min-height: 850px) {
+  .landing-margin {
+    margin-top: 12vh;
+  }
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
