@@ -1,7 +1,7 @@
 async function placeDetail(placeId) {
     const fetchDetail = async () => {
         try {
-            const response = await fetch("/api/place/place_detail", {
+            const response = await fetch("https://journey-ai-product-version-server.vercel.app/api/place/place_detail", {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json"
@@ -23,7 +23,7 @@ async function placeDetail(placeId) {
 async function placeSearch(location){
     const fetchPlaceDetail = async() => {
         try {
-            const response = await fetch("/api/place/place_search", {
+            const response = await fetch("https://journey-ai-product-version-server.vercel.app/api/place/place_search", {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json"
@@ -83,7 +83,7 @@ async function placePhoto(location){
     const photo_ref = place_detail.photo_reference;
     const fetchPhtoData = async () => {
         try {
-            const response = await fetch("/api/place/photo_search", {
+            const response = await fetch("https://journey-ai-product-version-server.vercel.app/api/place/photo_search", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -105,7 +105,7 @@ async function placePhoto(location){
 async function placePhotoWithRef(photo_ref){
     const fetchPhotoData = async () => {
         try {
-            const response = await fetch("/api/place/photo_search", {
+            const response = await fetch("https://journey-ai-product-version-server.vercel.app/api/place/photo_search", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
