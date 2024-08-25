@@ -13,7 +13,7 @@ app.use('/api/place', placeRoutes);
 app.use('/api/mapbox', mapRoutes);
 app.use('/api/gemini', geminiRoutes);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3001;
 
 app.get('/api/saved_plan/:userId', async (req, res) => {
   const userId = req.params.userId;
@@ -64,6 +64,10 @@ app.get('/api/saved_plan/:userId/:planId', async (req, res) => {
     res.status(400).json({ message: 'Invalid userId or planId' });
   }
 });
+
+app.get("/", (req, res) => {
+  res.send(`Server listening on Port: ${PORT}`);
+})
 
 app.listen(PORT, () => {
   console.log(`Server listening on Port: ${PORT}`);
