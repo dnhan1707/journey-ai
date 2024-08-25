@@ -11,7 +11,7 @@ function GeminiResponse(props) {
             try {
                 setLoading(true);
 
-                const response = await fetch("/api/gemini/gemini_response", {
+                const response = await fetch("https://journey-ai-product-version-server.vercel.app/api/gemini/gemini_response", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"

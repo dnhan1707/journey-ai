@@ -3,10 +3,14 @@ import dotenv from 'dotenv';
 import placeRoutes from './routes/googleApiService.js';
 import mapRoutes from './routes/mapBoxApiService.js';
 import geminiRoutes from './routes/geminiApiService.js';
+import cors from 'cors';
 
 dotenv.config();
 
 const app = express();
+// Enable CORS for all origins
+app.use(cors());
+
 app.use(express.json());
 
 app.use('/api/place', placeRoutes);
