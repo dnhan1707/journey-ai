@@ -1,16 +1,23 @@
 {
     "version": 2,
     "builds": [
-        {
+      {
         "src": "package.json",
-        "use": "@vercel/next"
+        "use": "@vercel/static-build",
+        "config": {
+          "distDir": "build"
         }
+      }
     ],
     "routes": [
-        {
+      {
+        "src": "/api/(.*)",
+        "dest": "/api/$1"
+      },
+      {
         "src": "/(.*)",
-        "dest": "/"
-        }
+        "dest": "/index.html"
+      }
     ]
-}
+  }
   
