@@ -9,7 +9,13 @@ dotenv.config();
 
 const app = express();
 // Enable CORS for all origins
-app.use(cors());
+app.use(cors(
+  {
+    origin: ["https://journey-ai-product-version-client.vercel.app/"],
+    methods: ["POST", "GET"],
+    credentials: true
+  }
+));
 
 app.use(express.json());
 
