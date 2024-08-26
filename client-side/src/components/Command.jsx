@@ -64,7 +64,10 @@ function Command() {
                     <CustomizeOptions show={openCustomizeBox} onClose={handleOpenCustomizeBox} setTheme={setTheme} setSpecialRequest={setSpecialRequest} setBudget={setBudget}/>
                 )
             }
-            <div id="command">
+
+            {
+                !isLoading && 
+                <div id="command">
                 <div className="text-center landing-margin">
                     <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Plan your trip in one
                         click</h1>
@@ -123,6 +126,8 @@ function Command() {
                     )
                 }
             </div>
+            }
+
             {/* <button className="absolute right-40 top-0 h-auto text-gray-600 mx-7 mt-2 hover:text-gray-900 hover:underline py-3 px-2 rounded flex items-center justify-center mb-4 space-x-2">
                 saved plan
             </button>
