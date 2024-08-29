@@ -13,7 +13,7 @@ function UserInfo({ likeOption }) {
     // Initialize state based on either likeOption or localStorage
     const [liked, setLiked] = usePersistState(likeOption, 'liked');
 
-    const handleClose = (event, reason) => {
+    const handleCloseSnackBar = (event, reason) => {
         if (reason === 'clickaway') {
             return;
         }
@@ -58,10 +58,10 @@ function UserInfo({ likeOption }) {
             <Snackbar
                 open={openSnackBar}
                 autoHideDuration={5000}
-                onClose={handleClose}
+                onClose={handleCloseSnackBar}
             >
                 <Alert
-                    onClose={handleClose}
+                    onClose={handleCloseSnackBar}
                     severity="warning"
                     variant="filled"
                     sx={{ width: '100%' }}
