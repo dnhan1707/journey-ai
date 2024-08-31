@@ -8,7 +8,7 @@ import DetailCard from './DetailCard.jsx';
 import { useUser } from '../UserContext.jsx';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
-
+import default_pic from "../pictures/man_walking.jpg"
 
 function Card(props) {
     const [openSnackBar, setOpenSnackBar] = useState(false);
@@ -17,7 +17,7 @@ function Card(props) {
 
     // Using usePersistState for caching data
     const [placeDetailData, setPlaceDetailData] = usePersistState(null, `placeDetailData_${props.activity.location_name}`);
-    const [photoUrl, setPhotoUrl] = usePersistState('path/to/default/photo.jpg', `photoUrl_${props.activity.location_name}`);
+    const [photoUrl, setPhotoUrl] = usePersistState(default_pic, `photoUrl_${props.activity.location_name}`);
     const [placeName, setPlaceName] = usePersistState('', 'placeName:' + props.activityIndex);
 
 
