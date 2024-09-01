@@ -3,13 +3,13 @@ import FetchImage from "./FetchImage.jsx";
 import DisplayTitle from "./DisplayTitle.jsx";
 import BackBtn from "./BackBtn.jsx";
 
-function ImageContainer(props){
+function ImageContainer({ location, response, isImageFetched }){
     
     return (
         <div className="image_container relative">
             <BackBtn/>
-            <FetchImage query={props.location}/>
-            <DisplayTitle response={props.response}/>
+            <FetchImage query={location} isImagedFetchedSuccessfully={isImageFetched}/>
+            <DisplayTitle response={response}/>
         </div>   
     )
 }

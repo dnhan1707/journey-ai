@@ -11,11 +11,16 @@ import { useUser } from "../UserContext.js";
 
 library.add(fas, far, fab);
 
-function createCard(activity, activityIndex, dayindex) {
-    return <Card activity={activity} activityIndex={activityIndex} dayindex={dayindex}/>;
+function createCard(activity, activityIndex, dayindex, onCardDataFetched) {
+    return <Card 
+    activity={activity} 
+    activityIndex={activityIndex} 
+    dayindex={dayindex}
+    onDataFetched={onCardDataFetched}
+    />;
 }
 
-function DisplayCard({ response }) {
+function DisplayCard({ response, onCardDataFetched  }) {
     const [parsedResponse, setParsedResponse] = useState(null);
     const [open, setOpen] = useState([]);
     const { setItinerary } = useUser();
@@ -65,7 +70,7 @@ function DisplayCard({ response }) {
                                 <div className="dropdown">
                                     <ul>
                                         {day.activities && day.activities.map((activity, activityIndex) => (
-                                            createCard(activity, activityIndex, dayindex)
+                                            createCard(activity, activityIndex, dayindex, onCardDataFetched)
                                         ))}
                                     </ul>
                                 </div>

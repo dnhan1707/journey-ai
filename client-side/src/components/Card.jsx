@@ -76,7 +76,11 @@ function Card(props) {
                 }
             } catch (err) {
                 console.error("Error fetching place details:", err);
+            } finally {
+                props.onDataFetched(true);
             }
+        } else {
+            props.onDataFetched(true);
         }
     }, [placeDetailData, photoUrl, props.activity.location_name, userUid, addNewActivity]);
 
