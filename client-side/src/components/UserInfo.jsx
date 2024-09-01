@@ -11,9 +11,9 @@ function UserInfo({ likeOption, isInSavedDestinationPage, plan_id }) {
     const [openSnackBar, setOpenSnackBar] = useState(false);
 
     // Initialize state based on either likeOption or localStorage
-    if(!isInSavedDestinationPage){
-        const [liked, setLiked] = usePersistState(likeOption, `liked_${plan_id}`);  
-    }
+    // if(!isInSavedDestinationPage){
+    const [liked, setLiked] = usePersistState(likeOption, `liked_${plan_id}`);  
+    // }
 
 
     const handleClose = (event, reason) => {
