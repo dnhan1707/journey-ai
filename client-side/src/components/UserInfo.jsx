@@ -1,19 +1,22 @@
 import "../css/UserInfo.css";
-import { useState, useCallback, useEffect } from "react";
-import { useUser } from "../UserContext";
+import { useState, useCallback } from "react";
+import { useUser } from "../UserContext.js";
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import usePersistState from "../usePersistState";
 
-function UserInfo({ likeOption }) {
+function UserInfo({ likeOption, isInSavedDestinationPage, plan_id }) {
     const currentDate = new Date();
     const { savePlan, userUid } = useUser();
     const [openSnackBar, setOpenSnackBar] = useState(false);
 
     // Initialize state based on either likeOption or localStorage
-    const [liked, setLiked] = usePersistState(likeOption, 'liked');
+    if(!isInSavedDestinationPage){
+        const [liked, setLiked] = usePersistState(likeOption, `liked_${plan_id}`);  
+    }
 
-    const handleCloseSnackBar = (event, reason) => {
+
+    const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
         }
@@ -58,10 +61,10 @@ function UserInfo({ likeOption }) {
             <Snackbar
                 open={openSnackBar}
                 autoHideDuration={5000}
-                onClose={handleCloseSnackBar}
+                onClose={handleClose}
             >
                 <Alert
-                    onClose={handleCloseSnackBar}
+                    onClose={handleClose}
                     severity="warning"
                     variant="filled"
                     sx={{ width: '100%' }}
@@ -88,6 +91,10 @@ function UserInfo({ likeOption }) {
                         onClick={clickLike}
                         title={!userUid ? "You must be logged in to save the plan" : ""}
                     >
+                        {
+                            isInSavedDestinationPage &&
+                            <i className={'fa-heart fa-solid text-red-500 text-2xl'}></i>
+                        }
                         {
                             userUid && 
                             <i className={`fa-heart ${liked ? 'fa-solid text-red-500' : 'fa-regular text-gray-500'} text-2xl`}></i>

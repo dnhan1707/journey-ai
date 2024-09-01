@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import mapboxgl from 'mapbox-gl';
 import "mapbox-gl/dist/mapbox-gl.css";
 import "../css/GenerateMap.css";
@@ -40,7 +40,6 @@ function GenerateDestinationPage() {
     const map_ref = useRef(null);
     const map_obj = useRef(null);
     const marker_obj = useRef(null);
-    const { userId, planId } = useParams();
     const [city, setCity] = useState('')
 
 
@@ -55,7 +54,7 @@ function GenerateDestinationPage() {
         const plan = data.find(p => p.plan_id === plan_id);
         setPlanData(plan);
         setOpen(new Array(plan.itinerary.length).fill(true));
-    })
+    }, [data, plan_id])
 
     useEffect(() => {
         if (planData && planData.city) {
@@ -131,7 +130,7 @@ function GenerateDestinationPage() {
             <div className="dummy absolute top-0 left-0 w-full h-10 bg-white text-center text-white z-50 lg:hidden md:hidden"></div>
             <div className="detail_container pb-10 ">
                 <ImageContainer location={city}></ImageContainer>
-                <UserInfo likeOption={true}></UserInfo>
+                <UserInfo likeOption={true} isInSavedDestinationPage={true}/>
 
                 <div className="detail_plan">
                     <div id="card-container">
