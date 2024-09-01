@@ -142,12 +142,12 @@ function Card(props) {
                             </p>
                         </div>
                     </div>
-                    <div className="location_image rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
+                    <div className="location_image rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 max-w-[175px] max-h-[175px]">
                         {photoUrl && (
                             <img
                                 src={photoUrl}
                                 alt="Place"
-                                className="rounded-lg object-cover"
+                                className="w-full h-full object-cover"
                             />
                         )}
                     </div>
