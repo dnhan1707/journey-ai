@@ -90,6 +90,8 @@ function UserInfo({ likeOption, isInSavedDestinationPage, plan_id }) {
                     <button
                         onClick={clickLike}
                         title={!userUid ? "You must be logged in to save the plan" : ""}
+                        disabled={isInSavedDestinationPage}  // Disable button if on saved destination page
+                        className={`${isInSavedDestinationPage ? 'cursor-not-allowed opacity-50' : ''}`}  // Optionally add styles for disabled state
                     >
                     {
                         isInSavedDestinationPage ? (
