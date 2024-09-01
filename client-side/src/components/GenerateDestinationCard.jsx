@@ -50,20 +50,29 @@ function GenerateDestinationCard(props) {
             <div className="card flex w-full rounded-lg bg-gray-50 p-3">
                 <div className="location_description flex">
                     <div className="description">
-                        <button className="font-semibold text-lg" onClick={cardDetailClicked}>
+                        <button 
+                            className="font-semibold text-lg  focus:outline-none transition-colors duration-200 hover:text-orange-600"
+                            onClick={cardDetailClicked}
+                        >
                             <FontAwesomeIcon icon={iconDefinition} /> - {placeName}
                         </button>
-                        <p className="card-description text-slate-500 text-base">{props.activity.description}</p>
+                        <p className="card-description w-5/6 text-slate-500 text-base mt-1">{props.activity.description}</p>
                     </div>
-                    <div className='flex flex-row items-center'>
-                        <div className="relative w-fit cursor-default items-center gap-1.5 rounded-full border border-solid border-gray-200 bg-white px-3 py-0.5 text-xs md:text-sm">
+                    <div className='flex flex-row items-center mt-2'>
+                        <div className="relative w-fit cursor-default items-center gap-1.5 rounded-full border border-solid border-gray-200 bg-white px-3 py-0.5 text-xs md:text-sm shadow-sm transition-shadow duration-200 hover:shadow-md">
                             <p className="text-gray-500">{props.activity.duration}</p>
                         </div>
-                        <p className="px-3"> • <FontAwesomeIcon icon="fa-solid fa-dollar-sign" /> {price}</p> 
+                        <p className="px-3 text-green-600"> • <FontAwesomeIcon icon="fa-solid fa-dollar-sign" /> {price}</p> 
                     </div>
                 </div>
-                <div className="location_image rounded-lg">
-                    {photoUrl && <img src={photoUrl} alt="Place" className="rounded-lg" />}
+                <div className="location_image rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 max-w-[175px] max-h-[175px]">
+                        {photoUrl && (
+                            <img
+                                src={photoUrl}
+                                alt="Place"
+                                className="w-full h-full object-cover"
+                            />
+                        )}
                 </div>
             </div>
         </div>
