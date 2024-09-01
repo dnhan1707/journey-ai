@@ -5,7 +5,7 @@ import "../css/Card.css";
 import { findIconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { placeSearch, placePhotoWithRef, placeDetail } from './PlaceResponse.jsx';
 import DetailCard from './DetailCard.jsx';
-import { useUser } from '../UserContext.jsx';
+import { useUser } from '../UserContext.js';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import default_pic from "../pictures/man_walking.jpg"

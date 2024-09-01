@@ -1,7 +1,7 @@
 import SignOutButton from "./Auth/SignOutButton";
 import { useNavigate } from "react-router-dom";
 import SignInButton from "./Auth/SignInButton";
-import { useUser } from "../UserContext";
+import { useUser } from "../UserContext.js";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'

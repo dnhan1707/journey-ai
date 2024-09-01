@@ -7,7 +7,7 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 import Card from "./Card.jsx";
 import "../css/Card.css";
 import "../css/Day.css";
-import { useUser } from "../UserContext.jsx";
+import { useUser } from "../UserContext.js";
 
 library.add(fas, far, fab);
 

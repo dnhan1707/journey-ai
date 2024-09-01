@@ -10,7 +10,7 @@ import "./index.css";
 import SavedPlanPage from './pages/SavedPlanPage.jsx';
 import GenerateDestinationPage from './pages/GenerateDestinationPage.js';
 import GenerateMap from './pages/GenerateMap.js';
-import { useUser } from './UserContext.jsx';
+import { useUser } from './UserContext.js';
 
 function App() {
   const [user, setUser] = useState(null);

@@ -3,7 +3,7 @@ import SavedPlanCard from "../components/SavedPlanCard.jsx";
 import Header from "../components/Header.jsx";
 import { db } from '../firebase/firebase.js';
 import { doc, getDoc } from 'firebase/firestore';
-import { useUser } from '../UserContext.jsx';
+import { useUser } from '../UserContext.js';
 
 function SavedPlanPage() {
   const [savedPlan, setSavedPlan] = useState(null);
