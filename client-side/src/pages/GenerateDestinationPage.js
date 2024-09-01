@@ -46,6 +46,7 @@ function GenerateDestinationPage() {
     const dataPassedHere = useLocation();
     const data = dataPassedHere.state.saved_plans;
     const plan_id = dataPassedHere.state.plan_id;
+    console.log("Chosen plan_id: ", plan_id)
     // const plan_id = 1;
 
     // console.log(data);
@@ -54,7 +55,7 @@ function GenerateDestinationPage() {
         const plan = data.find(p => p.plan_id === plan_id);
         setPlanData(plan);
         setOpen(new Array(plan.itinerary.length).fill(true));
-    }, [data, plan_id])
+    })
 
     useEffect(() => {
         if (planData && planData.city) {
