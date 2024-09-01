@@ -2,7 +2,7 @@ import {Fragment, useEffect, useState} from "react";
 import { createApi } from "unsplash-js";
 import "../css/Destination.css"
 // import "./FetchImage.css";
-function FetchImage({query, isImagedFetchedSuccessfully }){
+function FetchImage({ query }){
     const [data, setPhotosResponse] = useState(null);
     const api = createApi({
         // accessKey: process.env.REACT_APP_UNSPLASH_ACCESS_KEY,
@@ -29,7 +29,6 @@ function FetchImage({query, isImagedFetchedSuccessfully }){
             api.search
                 .getPhotos({query: query, orientation: "landscape"})
                 .then(result => {
-                    isImagedFetchedSuccessfully(true)
                     setPhotosResponse(result);
                 })
                 .catch(() => {
