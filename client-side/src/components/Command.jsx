@@ -27,6 +27,7 @@ function Command() {
         // { value: 0, label: 'Cheap' },
         // { value: 1, label: 'Mid' },
         // { value: 2, label: 'High' },
+        localStorage.removeItem('currentPlanId');
         const prompt = journeyCmd(location, numOfPeople, day, theme, specialRequest, budget);
 
         setCommand(prompt);
