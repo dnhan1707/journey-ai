@@ -18,10 +18,10 @@ function DetailContainer({ location }) {
     }
 
     useEffect(() => {
-        if (fetchImageDone && fetchCardDataDone) {
+        if (fetchImageDone) {
             setFetchDone(true);
         }
-    }, [fetchImageDone, fetchCardDataDone]); // Trigger only when either of these changes
+    }, [fetchImageDone]); // Trigger only when either of these changes
 
     return (
         <>
@@ -39,7 +39,6 @@ function DetailContainer({ location }) {
                     />
                     <DisplayCard 
                         response={location.state.responseData} 
-                        onCardDataFetched={setFetchCardDataDone} 
                     />
                 </div>
             ) : (

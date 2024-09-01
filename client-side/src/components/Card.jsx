@@ -76,11 +76,7 @@ function Card(props) {
                 }
             } catch (err) {
                 console.error("Error fetching place details:", err);
-            } finally {
-                props.onDataFetched(true);
             }
-        } else {
-            props.onDataFetched(true);
         }
     }, [placeDetailData, photoUrl, props.activity.location_name, userUid, addNewActivity]);
 
@@ -100,63 +96,74 @@ function Card(props) {
 
     return (
         <>
-            <Snackbar
-                open={openSnackBar}
-                autoHideDuration={5000}
-                onClose={handleCloseSnackBar}
-            >
-                <Alert
-                    onClose={handleCloseSnackBar}
-                    severity="warning"
-                    variant="filled"
-                    sx={{ width: '100%' }}
-                >
-                    Please login or signup to see more details.
-                </Alert>
-            </Snackbar>
-    
-            <div key={props.activityIndex} className="detail pt-6">
-                {userUid && (
-                    <DetailCard
-                        show={openDetail}
-                        onClose={cardDetailClicked}
-                        placeDetailData={placeDetailData}
-                        placeName={placeName}
-                        photoURL={photoUrl}
-                    />
-                )}
-                <div className="card flex w-full rounded-lg bg-gray-50 p-3 transition-transform duration-300 ease-in-out hover:scale-105 hover:bg-gray-100">
-                    <div className="location_description flex">
-                        <div className="description">
-                            <button
-                                className="font-semibold text-lg  focus:outline-none transition-colors duration-200 hover:text-orange-600"
-                                onClick={cardDetailClicked}
-                                title={!userUid ? "Please Log-in or Sign-up to see more detail" : ""}
+            {
+                placeDetailData ? (
+                    <div>
+                        <Snackbar
+                            open={openSnackBar}
+                            autoHideDuration={5000}
+                            onClose={handleCloseSnackBar}
+                        >
+                            <Alert
+                                onClose={handleCloseSnackBar}
+                                severity="warning"
+                                variant="filled"
+                                sx={{ width: '100%' }}
                             >
-                                <FontAwesomeIcon icon={iconDefinition} className="mr-2" /> {placeName}
-                            </button>
-                            <p className="card-description w-5/6 text-slate-500 text-base mt-1">{props.activity.description}</p>
-                        </div>
-                        <div className='flex flex-row items-center mt-2'>
-                            <div className="relative w-fit cursor-default items-center gap-1.5 rounded-full border border-solid border-gray-200 bg-white px-3 py-0.5 text-xs md:text-sm shadow-sm transition-shadow duration-200 hover:shadow-md">
-                                <p className="text-gray-500">{props.activity.duration}</p>
+                                Please login or signup to see more details.
+                            </Alert>
+                        </Snackbar>
+                
+                        <div key={props.activityIndex} className="detail pt-6">
+                            {userUid && (
+                                <DetailCard
+                                    show={openDetail}
+                                    onClose={cardDetailClicked}
+                                    placeDetailData={placeDetailData}
+                                    placeName={placeName}
+                                    photoURL={photoUrl}
+                                />
+                            )}
+                            <div className="card flex w-full rounded-lg bg-gray-50 p-3 transition-transform duration-300 ease-in-out hover:scale-105 hover:bg-gray-100">
+                                <div className="location_description flex">
+                                    <div className="description">
+                                        <button
+                                            className="font-semibold text-lg  focus:outline-none transition-colors duration-200 hover:text-orange-600"
+                                            onClick={cardDetailClicked}
+                                            title={!userUid ? "Please Log-in or Sign-up to see more detail" : ""}
+                                        >
+                                            <FontAwesomeIcon icon={iconDefinition} className="mr-2" /> {placeName}
+                                        </button>
+                                        <p className="card-description w-5/6 text-slate-500 text-base mt-1">{props.activity.description}</p>
+                                    </div>
+                                    <div className='flex flex-row items-center mt-2'>
+                                        <div className="relative w-fit cursor-default items-center gap-1.5 rounded-full border border-solid border-gray-200 bg-white px-3 py-0.5 text-xs md:text-sm shadow-sm transition-shadow duration-200 hover:shadow-md">
+                                            <p className="text-gray-500">{props.activity.duration}</p>
+                                        </div>
+                                        <p className="px-3 text-green-600">
+                                            • <FontAwesomeIcon icon="fa-solid fa-dollar-sign" className='text-green-600' /> {props.activity.price_level}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="location_image rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 max-w-[175px] max-h-[175px]">
+                                    {photoUrl && (
+                                        <img
+                                            src={photoUrl}
+                                            alt="Place"
+                                            className="w-full h-full object-cover"
+                                        />
+                                    )}
+                                </div>
                             </div>
-                            <p className="px-3 text-green-600">
-                                • <FontAwesomeIcon icon="fa-solid fa-dollar-sign" className='text-green-600' /> {props.activity.price_level}
-                            </p>
                         </div>
                     </div>
-                    <div className="location_image rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 max-w-[175px] max-h-[175px]">
-                        {photoUrl && (
-                            <img
-                                src={photoUrl}
-                                alt="Place"
-                                className="w-full h-full object-cover"
-                            />
-                        )}
-                    </div>
-                </div>
-            </div>
+
+                ) : (
+                    <p>Loading... Please wait while we fetch your itinerary details.</p>
+                )
+            }
+
+
         </>
     );
 }

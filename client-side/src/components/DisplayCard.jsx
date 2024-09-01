@@ -11,12 +11,11 @@ import { useUser } from "../UserContext.js";
 
 library.add(fas, far, fab);
 
-function createCard(activity, activityIndex, dayindex, onCardDataFetched) {
+function createCard(activity, activityIndex, dayindex) {
     return <Card 
     activity={activity} 
     activityIndex={activityIndex} 
     dayindex={dayindex}
-    onDataFetched={onCardDataFetched}
     />;
 }
 
@@ -70,7 +69,7 @@ function DisplayCard({ response, onCardDataFetched  }) {
                                 <div className="dropdown">
                                     <ul>
                                         {day.activities && day.activities.map((activity, activityIndex) => (
-                                            createCard(activity, activityIndex, dayindex, onCardDataFetched)
+                                            createCard(activity, activityIndex, dayindex)
                                         ))}
                                     </ul>
                                 </div>
