@@ -91,18 +91,15 @@ function UserInfo({ likeOption, isInSavedDestinationPage, plan_id }) {
                         onClick={clickLike}
                         title={!userUid ? "You must be logged in to save the plan" : ""}
                     >
-                        {
-                            isInSavedDestinationPage &&
+                    {
+                        isInSavedDestinationPage ? (
                             <i className={'fa-heart fa-solid text-red-500 text-2xl'}></i>
-                        }
-                        {
-                            userUid && 
+                        ) : userUid ? (
                             <i className={`fa-heart ${liked ? 'fa-solid text-red-500' : 'fa-regular text-gray-500'} text-2xl`}></i>
-                        }
-                        {
-                            !userUid && 
+                        ) : (
                             <i className="fa-regular fa-heart text-gray-500 text-2xl"></i>
-                        }
+                        )
+                    }
                     </button>
                 </div>
             </div>

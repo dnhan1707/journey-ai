@@ -5,7 +5,13 @@ import { v4 as uuidv4 } from 'uuid';
 // import DaysNavBar from "./DaysNavBar";
 
 function DetailContainer({location}){
-    const planId = uuidv4();
+    let planId = localStorage.getItem('currentPlanId');
+
+    if (!planId) {
+        // If not, generate a new one and store it
+        planId = uuidv4();
+        localStorage.setItem('currentPlanId', planId);
+    }
     return (
 
         <div className="detail_container pb-10">
