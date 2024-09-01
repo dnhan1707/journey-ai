@@ -2,9 +2,8 @@ import ImageContainer from "./ImageContainer";
 import UserInfo from "./UserInfo";
 import DisplayCard from "./DisplayCard";
 import { v4 as uuidv4 } from 'uuid';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import LoadingPage from "./LoadingPage.jsx";
-// import DaysNavBar from "./DaysNavBar";
 
 function DetailContainer({ location }) {
     const [fetchDone, setFetchDone] = useState(false);
@@ -18,26 +17,36 @@ function DetailContainer({ location }) {
         localStorage.setItem('currentPlanId', planId);
     }
 
-    if(fetchImageDone && fetchCardDataDone){
-        setFetchDone(true);
-    }
+    useEffect(() => {
+        if (fetchImageDone && fetchCardDataDone) {
+            setFetchDone(true);
+        }
+    }, [fetchImageDone, fetchCardDataDone]); // Trigger only when either of these changes
 
     return (
         <>
-            {
-                fetchDone ? (
-                    <div className="detail_container pb-10">
-                        <ImageContainer location={location.state.location} response={location.state.responseData} isImageFetched={setFetchImageDone}/>
-                        <UserInfo likeOption={false} isInSavedDestinationPage={false} plan_id={planId} />
-                        <DisplayCard response={location.state.responseData} onCardDataFetched={setFetchCardDataDone}/>
-                    </div>
-                ) :
-                <LoadingPage></LoadingPage>
-            }
-
+            {fetchDone ? (
+                <div className="detail_container pb-10">
+                    <ImageContainer 
+                        location={location.state.location} 
+                        response={location.state.responseData} 
+                        isImageFetched={setFetchImageDone} 
+                    />
+                    <UserInfo 
+                        likeOption={false} 
+                        isInSavedDestinationPage={false} 
+                        plan_id={planId} 
+                    />
+                    <DisplayCard 
+                        response={location.state.responseData} 
+                        onCardDataFetched={setFetchCardDataDone} 
+                    />
+                </div>
+            ) : (
+                <LoadingPage />
+            )}
         </>
     );
 }
-
 
 export default DetailContainer;
