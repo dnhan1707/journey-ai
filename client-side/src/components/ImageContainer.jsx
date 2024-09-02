@@ -1,5 +1,5 @@
 import "../css/ImageContainer.css"
-import FetchImage from "./FetchImage.jsx";
+import FetchImage from "./FetchImage.js";
 import DisplayTitle from "./DisplayTitle.jsx";
 import BackBtn from "./BackBtn.jsx";
 

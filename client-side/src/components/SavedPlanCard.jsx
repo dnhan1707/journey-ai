@@ -1,4 +1,4 @@
-import FetchImage from "./FetchImage.jsx"
+import FetchImage from "./FetchImage.js"
 import "../css/SavedPlanCard.css"
 import { useNavigate } from "react-router-dom";
 

@@ -138,8 +138,8 @@ function Card(props) {
                             <div className="relative w-fit cursor-default items-center gap-1.5 rounded-full border border-solid border-gray-200 bg-white px-3 py-0.5 text-xs md:text-sm shadow-sm transition-shadow duration-200 hover:shadow-md">
                                 <p className="text-gray-500">{props.activity.duration}</p>
                             </div>
-                            <p className="px-3 text-green-600">
-                                • <FontAwesomeIcon icon="fa-solid fa-dollar-sign" className='text-green-600' /> {props.activity.price_level}
+                            <p className="px-3">
+                                • <FontAwesomeIcon icon="fa-solid fa-dollar-sign" />{props.activity.price_level}
                             </p>
                         </div>
                     </div>
