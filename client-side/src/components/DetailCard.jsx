@@ -34,7 +34,7 @@ function DetailCard({ show, onClose, placeDetailData, placeName, photoURL, place
 >
   <div className="relative py-3 sm:max-w-xl sm:mx-auto w-full">
     <div
-      className="absolute inset-0 bg-gradient-to-r from-blue-300 to-blue-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"
+      className="absolute inset-0 bg-gradient-to-r from-orange-300 to-orange-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"
     ></div>
     <div
       className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-10 overflow-y-auto h-4/5 max-h-[80vh]"
