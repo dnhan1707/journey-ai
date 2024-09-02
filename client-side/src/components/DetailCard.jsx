@@ -18,11 +18,8 @@ function DetailCard({ show, onClose, placeDetailData, placeName, photoURL, place
 
         if (placeDetailDataFromDb) {
             setPlaceDetails(placeDetailDataFromDb);
-            console.log("set detail data from db")
         } else if (placeDetailData) {
             fetchData();
-            console.log("set detail data")
-
         }
     }, [placeDetailData, placeDetailDataFromDb]);
 

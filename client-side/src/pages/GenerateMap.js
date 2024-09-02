@@ -57,7 +57,7 @@ function GenerateMap() {
 
 
     const location_names = getAllLocationName(parsedResponse);
-    console.log(location_names);
+    // console.log(location_names);
 
     const [center, setCenter] = useState(null);
     const [zoom, setZoom] = useState(null);

@@ -39,17 +39,17 @@ export const UserProvider = ({ children }) => {
     if (userDocSnap.exists()) {
       const userData = userDocSnap.data();
       const savedPlanCount = userData.saved_plans ? userData.saved_plans.length : 0;
-      console.log(`Number of saved plans for user ${userUid}:`, savedPlanCount);
+      // console.log(`Number of saved plans for user ${userUid}:`, savedPlanCount);
       return savedPlanCount;
     } else {
-        console.log("No such document!");
+        // console.log("No such document!");
         return 0;
     }
   }
 
   const savePlan = async () => {    
-    console.log("Itinerary that is going to get saved");
-    console.log(itinerary);
+    // console.log("Itinerary that is going to get saved");
+    // console.log(itinerary);
     const savedPlanCount = await getSavedPlanCount(userUid);
 
     const newPlan = {
@@ -70,13 +70,13 @@ export const UserProvider = ({ children }) => {
         await setDoc(userRef, {
             saved_plans: [newPlan],  // Initialize with the new plan
         });
-        console.log("User document created with new plan");
+        // console.log("User document created with new plan");
       } else {
         // Document exists, add new plan to the existing document
         await updateDoc(userRef, {
             saved_plans: arrayUnion(newPlan)
         });
-        console.log("New plan added to existing document");
+        // console.log("New plan added to existing document");
       }
       // Resetting the states after saving
       setCity(null);

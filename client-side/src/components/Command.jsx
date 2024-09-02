@@ -52,7 +52,6 @@ function Command() {
 
     useEffect(() => {
         if (responseData) {
-            console.log("Response Data: ", responseData);
             navigate('/destination', { state: { location: location, responseData: responseData } });
         }
     }, [responseData, location, navigate]);

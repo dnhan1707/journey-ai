@@ -28,8 +28,6 @@ function GenerateDestinationCard(props) {
                 setPhotoUrl(props.activity.place_detail.photo_url);
                 setPrice(props.activity.place_detail.price_level);
                 setIsDataFetched(true); // Mark data as fetched
-                console.log("Detail: ", props.activity.place_detail);
-                console.log("Photo url: ", props.activity.place_detail.photo_url);
             } catch (err) {
                 console.error("Error fetching place details:", err);
             }

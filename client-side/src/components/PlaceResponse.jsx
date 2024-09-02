@@ -10,7 +10,7 @@ async function placeDetail(placeId) {
             });
 
             const result = await response.json();
-            console.log("placeDetail get called");
+            // console.log("placeDetail get called");
             return result.place_detail.result; // Ensure it returns the 'result' key
         } catch (error) {
             console.error("Error from place detail()", error);
@@ -30,7 +30,7 @@ async function placeSearch(location){
                 },
                 body: JSON.stringify({location: location})
             })
-            console.log("placeSearch get called");
+            // console.log("placeSearch get called");
 
             const result = await response.json();
             const fullData = result.results[0];
@@ -91,7 +91,7 @@ async function placePhoto(location){
                 },
                 body: JSON.stringify({photoRef: photo_ref})
             })
-            console.log("placePhto get called");
+            // console.log("placePhto get called");
 
             const result = await response.json();
             return result.photoUrl;
@@ -115,7 +115,7 @@ async function placePhotoWithRef(photo_ref){
                 body: JSON.stringify({photoRef: photo_ref})
             })
 
-            console.log("placePhotoWithRef get called");
+            // console.log("placePhotoWithRef get called");
             const result = await response.json();
             return result.photoUrl;
 

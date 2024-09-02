@@ -46,7 +46,7 @@ function GenerateDestinationPage() {
     const dataPassedHere = useLocation();
     const data = dataPassedHere.state.saved_plans;
     const plan_id = dataPassedHere.state.plan_id;
-    console.log("Chosen plan_id: ", plan_id)
+    // console.log("Chosen plan_id: ", plan_id)
     // const plan_id = 1;
 
     // console.log(data);

@@ -18,7 +18,7 @@ function ThemeOption(props) {
     };
     useEffect(() => {
         // This effect will run whenever selectedOptions changes
-        console.log(selectedOptions);
+        // console.log(selectedOptions);
         props.setTheme(selectedOptions.join(","));
     }, [selectedOptions, props]);
 

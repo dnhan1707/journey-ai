@@ -20,11 +20,11 @@ function SavedPlanPage() {
       
       if (userDoc.exists()) {
         // Document data
-        console.log("User Uid", userId);
-        console.log("User Data:", userDoc.data().saved_plans);
+        // console.log("User Uid", userId);
+        // console.log("User Data:", userDoc.data().saved_plans);
         return userDoc.data();
       } else {
-        console.log("No such document!");
+        // console.log("No such document!");
         return null;
       }
     } catch (error) {
