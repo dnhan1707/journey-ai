@@ -65,7 +65,7 @@ function GenerateMap() {
     useEffect(() => {
         const fetchMapData = async () => {
             try {
-                const response = await fetch("https://journey-ai-product-version-server.vercel.app/api/mapbox/map", {
+                const response = await fetch("https://journey-ai-olive.vercel.app/api/mapbox/map", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
