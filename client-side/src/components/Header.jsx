@@ -16,7 +16,11 @@ function Header(){
     const navigateToSavePlanPage = () => {
         navigate('/saved_plans');
     }
-    
+
+    const navigateToDonatePage = () => {
+        navigate('/donation');
+    }
+
     return(
         <div className="header flex flex-row h-10 justify-between items-center">
             <div className="icon flex items-center h-full">
@@ -27,6 +31,10 @@ function Header(){
                 {
                     userUid && 
                     <div className="flex items-center gap-5">
+                        <button className="flex items-center" onClick={navigateToDonatePage}>
+                            <FontAwesomeIcon icon="fa-solid fa-hand-holding-dollar" />
+                            <span className="ml-2 text-gray-600">Buy me a coffee?</span>
+                        </button>
                         <button className="flex items-center" onClick={navigateToSavePlanPage}>
                             <FontAwesomeIcon icon="fa-solid fa-box-archive" />
                             <span className="ml-2 text-gray-600">Saved Plan</span>
@@ -37,7 +45,11 @@ function Header(){
 
                 {
                     !userUid && 
-                    <div className="flex items-center">
+                    <div className="flex items-center gap-5">
+                        <button className="flex items-center" onClick={navigateToDonatePage}>
+                            <FontAwesomeIcon icon="fa-solid fa-hand-holding-dollar" />
+                            <span className="ml-2 text-gray-600">Buy me a coffee?</span>
+                        </button>
                         <SignInButton></SignInButton>
                     </div>
                 }
