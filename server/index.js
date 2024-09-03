@@ -13,7 +13,7 @@ const app = express();
 // Enable CORS for all origins
 app.use(cors(
   {
-    origin: ["https://journey-ai-olive.vercel.app"],
+    origin: ["https://journey-ai-rs19.vercel.app"],
     methods: ["POST", "GET"],
     credentials: true
   }
