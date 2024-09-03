@@ -11,6 +11,7 @@ import SavedPlanPage from './pages/SavedPlanPage.jsx';
 import GenerateDestinationPage from './pages/GenerateDestinationPage.js';
 import GenerateMap from './pages/GenerateMap.js';
 import { useUser } from './UserContext.js';
+import DonationPage from './pages/DonationPage.js'
 
 function App() {
   const [user, setUser] = useState(null);
@@ -41,6 +42,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route index path='/login' element={<LogInPage user={user} />} />
+        <Route path='/donation' element={<DonationPage/>}/>
         <Route path='/' element={<MainPage />}/>
         <Route path='/destination' element={<GenerateMap/>} />
 
