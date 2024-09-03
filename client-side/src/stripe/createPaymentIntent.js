@@ -1,6 +1,6 @@
 
 export const createPaymentIntent = async (amount) => {
-    const response = await fetch("https://journey-ai-product-version-server.vercel.app/api/create-payment-intent", {
+    const response = await fetch("https://journey-ai-olive.vercel.app/api/create-payment-intent", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
