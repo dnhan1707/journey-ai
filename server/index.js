@@ -8,12 +8,12 @@ import Stripe from 'stripe';
 import createStripeRoutes from './routes/stripe.js';
 
 dotenv.config();
-const allowOrigin = ["https://www.journey-ai.dev"]
+// const allowOrigin = ["https://www.journey-ai.dev"]
 const app = express();
 // Enable CORS for all origins
 app.use(cors(
   {
-    origin: allowOrigin,
+    origin: '*',
     methods: ["POST", "GET"],
     credentials: true
   }
