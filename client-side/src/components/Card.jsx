@@ -122,7 +122,10 @@ function Card(props) {
                         photoURL={photoUrl}
                     />
                 )}
-                <div className="card flex w-full rounded-lg bg-gray-50 p-3 transition-transform duration-300 ease-in-out hover:scale-105 hover:bg-gray-100">
+                <div 
+                    className="card flex w-full rounded-lg bg-gray-50 p-3 transition-transform duration-300 ease-in-out hover:scale-105 hover:bg-gray-100"
+                    onClick={cardDetailClicked}
+                    >
                     <div className="location_description flex">
                         <div className="description">
                             <button
