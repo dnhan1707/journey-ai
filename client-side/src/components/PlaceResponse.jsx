@@ -2,7 +2,7 @@ async function placeDetail(placeId) {
     const fetchDetail = async () => {
         try {
             const response = await fetch("https://journey-ai-olive.vercel.app/api/place/place_detail", {
-                mode: 'no-cors',
+                // mode: 'no-cors',
                 method: "POST",
                 headers: {
                     "Content-type": "application/json"
@@ -25,7 +25,7 @@ async function placeSearch(location){
     const fetchPlaceDetail = async() => {
         try {
             const response = await fetch("https://journey-ai-olive.vercel.app/api/place/place_search", {
-                mode: 'no-cors',
+                // mode: 'no-cors',
                 method: "POST",
                 headers: {
                     "Content-type": "application/json"
@@ -87,7 +87,7 @@ async function placePhoto(location){
     const fetchPhtoData = async () => {
         try {
             const response = await fetch("https://journey-ai-olive.vercel.app/api/place/photo_search", {
-                mode: 'no-cors',
+                // mode: 'no-cors',
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -111,7 +111,7 @@ async function placePhotoWithRef(photo_ref){
     const fetchPhotoData = async () => {
         try {
             const response = await fetch("https://journey-ai-olive.vercel.app/api/place/photo_search", {
-                mode: 'no-cors',
+                // mode: 'no-cors',
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
