@@ -12,6 +12,7 @@ function GeminiResponse(props) {
                 setLoading(true);
 
                 const response = await fetch("https://journey-ai-olive.vercel.app/api/gemini/gemini_response", {
+                    mode: 'no-cors',
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
