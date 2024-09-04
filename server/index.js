@@ -11,13 +11,12 @@ dotenv.config();
 // const allowOrigin = ["https://www.journey-ai.dev"]
 const app = express();
 // Enable CORS for all origins
-app.use(cors(
-  {
-    origin: '*',
-    methods: ["POST", "GET"],
-    credentials: true
-  }
-));
+app.use(cors({
+  origin: 'https://www.journey-ai.dev', // Allow only this origin
+  methods: ["POST", "GET"],             // Allow only these methods
+  credentials: true                     // Allow credentials
+}));
+
 
 // app.use(cors())
 app.use(express.json());
