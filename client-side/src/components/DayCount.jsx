@@ -41,6 +41,7 @@ function DayCount({setNumberOfDay}){
     const handleIncrement = () => {
         setDay((prevState) => {
             const newDay = parseInt(prevState) + 1;
+            //handle kimit here
             if(newDay > 3){
                 setAlertForNumberOfDay(true);
                 setNumberOfDay(3);
