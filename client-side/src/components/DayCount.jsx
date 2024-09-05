@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
+// import Snackbar from '@mui/material/Snackbar';
+// import Alert from '@mui/material/Alert';
 
 function DayCount({setNumberOfDay}){
     const [inputDay, setDay] = useState(1);
