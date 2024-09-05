@@ -43,7 +43,8 @@ function DayCount({setNumberOfDay}){
             const newDay = parseInt(prevState) + 1;
             if(newDay > 3){
                 setAlertForNumberOfDay(true);
-                return 
+                setNumberOfDay(3);
+                return 3;
             }
             setNumberOfDay(newDay);
             return newDay;
