@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
+import { Alert } from "@mui/material";
+import Snackbar from "@mui/material";
 
 function DayCount({setNumberOfDay}){
-    const [inputDay, setDay] = useState(3);
+    const [inputDay, setDay] = useState(1);
+    const [alertForNumberOfDay, setAlertForNumberOfDay] = useState(false);
     useEffect(() => {
         setNumberOfDay(inputDay);
     },[inputDay, setNumberOfDay])
@@ -27,11 +30,21 @@ function DayCount({setNumberOfDay}){
             }
         });
     };
-    
+    const handleCloseSnackBar = (event, reason) => {
+        if(reason === 'clickaway'){
+            return;
+        }
+        setOpenSnackBar(false);
+    }
+
 
     const handleIncrement = () => {
         setDay((prevState) => {
             const newDay = parseInt(prevState) + 1;
+            if(newDay > 3){
+                setAlertForNumberOfDay(true);
+                return 
+            }
             setNumberOfDay(newDay);
             return newDay;
         })    
@@ -39,6 +52,20 @@ function DayCount({setNumberOfDay}){
 
     return (
         <div className="flex items-center justify-between md:order-3 md:justify-end my-5">
+            <Snackbar
+                open={alertForNumberOfDay}
+                autoHideDuration={5000}
+                onClose={handleCloseSnackBar}
+            >
+                <Alert
+                    onClose={handleCloseSnackBar}
+                    severity="warning"
+                    variant="filled"
+                    sx={{ width: '100%' }}
+                >
+                    Sorry, current limit is 3 days
+                </Alert>
+            </Snackbar>
             <label htmlFor="counter-input" className="sr-only">
                 Choose quantity:
             </label>
