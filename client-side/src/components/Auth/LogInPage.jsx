@@ -75,7 +75,7 @@ function LogInPage({ user }) {
 
                         <div className="flex flex-col gap-4">
                             <button 
-                                className="flex items-center justify-center w-full p-3 border-2 rounded-lg text-gray-600 hover:bg-gray-100"
+                                className="flex items-center justify-center w-full p-3 border-2 rounded-lg text-gray-600 hover:bg-gray-100 cursor-not-allowed opacity-50"
                                 onClick={handleSigninWithGoogle}
                                 disabled
                                 >
