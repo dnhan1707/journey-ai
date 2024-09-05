@@ -34,7 +34,7 @@ function DayCount({setNumberOfDay}){
         if(reason === 'clickaway'){
             return;
         }
-        setOpenSnackBar(false);
+        setAlertForNumberOfDay(false);
     }
 
 
