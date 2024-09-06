@@ -5,7 +5,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const router = express.Router(); 
-
 const API_KEY = process.env.API_KEY;
 
 if (!API_KEY) {

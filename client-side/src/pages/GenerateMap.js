@@ -56,7 +56,7 @@ function GenerateMap() {
     }, [response]);
 
 
-    const location_names = getAllLocationName(parsedResponse);
+    // const location_names = getAllLocationName(parsedResponse);
     // console.log(location_names);
 
     const [center, setCenter] = useState(null);

@@ -8,6 +8,8 @@ import journeyCmd from "./prompt.jsx"
 import LoadingPage from "./LoadingPage.jsx";
 import CustomizeOptions from "./CustomizeOptions.jsx";
 import Header from "./Header.jsx";
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
 function Command() {
     const [location, setLocation] = useState(null);
@@ -20,13 +22,20 @@ function Command() {
     const [openCustomizeBox, setOpenCustomizeBox] = useState(false);
     const [specialRequest, setSpecialRequest] = useState(null);
     const [budget, setBudget] = useState("Mid")
-
+    const [error, setError] = useState(null);
+    const [openSnackBar, setopenSnackBar] = useState(false)
     const navigate = useNavigate();
 
     const handleSubmit = async () => {
         // { value: 0, label: 'Cheap' },
         // { value: 1, label: 'Mid' },
         // { value: 2, label: 'High' },
+        if(!location){
+            setError("Please input the location");
+            setopenSnackBar(true);
+            return;
+        }
+
         localStorage.removeItem('currentPlanId');
         const prompt = journeyCmd(location, numOfPeople, day, theme, specialRequest, budget);
 
@@ -50,23 +59,50 @@ function Command() {
         setOpenCustomizeBox((prevState) => !prevState)
     };
 
+    const handleCloseSnackBar = (event, reason) => {
+        if(reason === 'clickaway'){
+            return;
+        }
+        setOpenSnackBar(false);
+    }
+
     useEffect(() => {
         if (responseData) {
             navigate('/destination', { state: { location: location, responseData: responseData } });
         }
     }, [responseData]);
     return (
-        <>
+        <>  
             <Header></Header>
+
+            {/* Loading page */}
             {isLoading && <LoadingPage />}
+
+            {/* Handle when open customize option */}
             {
                 openCustomizeBox && (
                     <CustomizeOptions show={openCustomizeBox} onClose={handleOpenCustomizeBox} setTheme={setTheme} setSpecialRequest={setSpecialRequest} setBudget={setBudget}/>
                 )
             }
 
-            
+            <Snackbar
+                open={openSnackBar}
+                autoHideDuration={5000}
+                onClose={handleCloseSnackBar}
+            >
+                <Alert
+                    onClose={handleCloseSnackBar}
+                    severity="warning"
+                    variant="filled"
+                    sx={{ width: '100%' }}
+                >
+                    {error}
+                </Alert>
+            </Snackbar>
+
             <div id="command">
+
+                {/* The title */}
                 <div className="text-center landing-margin">
                     <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Plan your trip in one
                         click</h1>
@@ -74,20 +110,15 @@ function Command() {
                         by simply entering your destination, number of travelers, and days.</p>
                     <img className="landing-icon" src={"notion-icon.png"} alt='journeyAI Icon' />
                 </div>
-                {/* Logo */}
-                {/* <img className={"logo-orange"} src={"logo-orange.png"} alt='journeyAI Icon' /> */}
+
                 
                 <div className="flex items-center justify-center">
-                    {/* <div className="flex-shrink-0 text-white">
-                        <button className="bg-orange-500 p-3 ring-orange-500 focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm text-center inline-flex items-center dark:bg-orange-500 dark:hover:bg-orange-700 dark:focus:ring-white" onClick={handleOpenAiChat}>
-                            AI
-                        </button>
-                    </div> */}
-
+                    {/* Location Input */}
                     <div className="w-1/2 max-w-lg mx-2">
                         <LocationInput setLocation={setLocation} />
                     </div>
 
+                    {/* Customize button */}
                     <div className="flex-shrink-0 mx-2">
                         <button className="bg-orange-500 p-3 ring-orange-500 focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm text-center inline-flex items-center dark:bg-orange-500 dark:hover:bg-orange-700 dark:focus:ring-white text-white" 
                         onClick={handleOpenCustomizeBox}
@@ -100,7 +131,7 @@ function Command() {
                     </div>
                 </div>
 
-
+                {/* Set number of days and people */}
                 <div className={"trip-options"}>
                     <div className={"mx-10"}>
                         <PeopleCount setNumOfPeople={setNumOfPeople} />
