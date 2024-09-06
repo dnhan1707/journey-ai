@@ -63,7 +63,7 @@ function Command() {
         if(reason === 'clickaway'){
             return;
         }
-        setOpenSnackBar(false);
+        setopenSnackBar(false);
     }
 
     useEffect(() => {
