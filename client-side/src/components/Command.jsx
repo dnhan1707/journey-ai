@@ -85,7 +85,7 @@ function Command() {
                 )
             }
 
-            {!isLoading && 
+            {/* {!isLoading &&  */}
                 <>
                     <Snackbar
                         open={openSnackBar}
@@ -165,7 +165,7 @@ function Command() {
                     </button>
                     <SignOutButton></SignOutButton> */}
                 </>
-            }
+            {/*  } */}
         </>
     );
 }
