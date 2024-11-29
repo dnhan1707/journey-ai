@@ -42,11 +42,11 @@ function GeminiResponse(props) {
         return <p>Error: {error}</p>;
     }
 
-    return (
-        <div className="GeminiResponse">
-            {isLoading ? <LoadingPage /> : <p>{data}</p>}
-        </div>
-    );
+    // return (
+    //     <div className="GeminiResponse">
+    //         {isLoading ? <LoadingPage /> : <p>{data}</p>}
+    //     </div>
+    // );
 }
 
 export default GeminiResponse;
