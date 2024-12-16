@@ -4,9 +4,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import { useLocation } from "react-router-dom";
 import "../css/GenerateMap.css"
 import DetailContainer from "../components/DetailContainer.jsx";
-import { useUser } from "../UserContext.js";
-// import CustomizePlan from "../components/CustomizePlan.jsx";
-
+const port = 5000;
 // public token
 mapboxgl.accessToken = process.env.REACT_APP_MAP_BOX;
 
@@ -20,44 +18,21 @@ const init_map = (map_ref) => {
     });
 };
 
-function getAllLocationName(responseData){
-    if (!responseData || !responseData.itinerary) return [];
-
-    const itinerary = responseData.itinerary;
-    const location_names = [];
-
-    itinerary.forEach(days => {
-        let activities = days.activities;
-        activities.forEach(activity => {
-            location_names.push(activity.location_name);
-        });
-    });
-
-    return location_names;
-}
 
 function GenerateMap() {
     const [parsedResponse, setParsedResponse] = useState(null);
     const location = useLocation(); // location.state.location and location.state.responseData
     const response = location.state.responseData;
-    const { setCity, setDuration, setTripName, setTotalEstimation} = useUser();
 
     useEffect(() => {
         try {
-            setCity(location.state.location);
             const parsed = typeof response === 'string' ? JSON.parse(response) : response;
             setParsedResponse(parsed);
-            setDuration(parseInt(parsed.duration));
-            setTripName(parsed.tripName);
-            setTotalEstimation(parsed.estimated_total);
         } catch (error) {
             console.error('Error parsing response:', error);
         }
     }, [response]);
 
-
-    // const location_names = getAllLocationName(parsedResponse);
-    // console.log(location_names);
 
     const [center, setCenter] = useState(null);
     const [zoom, setZoom] = useState(null);
@@ -65,7 +40,7 @@ function GenerateMap() {
     useEffect(() => {
         const fetchMapData = async () => {
             try {
-                const response = await fetch("https://journey-ai-olive.vercel.app/api/mapbox/map", {
+                const response = await fetch(`http://localhost:${port}/api/mapbox/map`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"

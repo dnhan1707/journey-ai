@@ -4,17 +4,14 @@ import { useUser } from "../UserContext.js";
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import usePersistState from "../usePersistState";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function UserInfo({ likeOption, isInSavedDestinationPage, plan_id }) {
     const currentDate = new Date();
-    const { savePlan, userUid } = useUser();
+    const { savePlan, userUid, planIdJustSaved, removePlan } = useUser();
     const [openSnackBar, setOpenSnackBar] = useState(false);
-
-    // Initialize state based on either likeOption or localStorage
-    // if(!isInSavedDestinationPage){
     const [liked, setLiked] = usePersistState(likeOption, `liked_${plan_id}`);  
-    // }
-
+    
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -38,9 +35,9 @@ function UserInfo({ likeOption, isInSavedDestinationPage, plan_id }) {
 
         if (newLikedState) {
             savePlan();
-            console.log("Plan saved to cloud");
-        } else {
-            console.log("Activity removed from the list");
+            // console.log("Plan saved to cloud");
+        } else {            
+            removePlan(planIdJustSaved);
         }
     }, [liked, savePlan, userUid]);
 
@@ -81,7 +78,9 @@ function UserInfo({ likeOption, isInSavedDestinationPage, plan_id }) {
                     </svg>
 
                     <div className="user_name_date">
-                        <p>User</p>
+                        <div className="flex">
+                            <p className="mr-4">User</p> <FontAwesomeIcon icon="fa-regular fa-pen-to-square" />
+                        </div>
                         <p>{formattedDate}</p>
                     </div>
                 </div>

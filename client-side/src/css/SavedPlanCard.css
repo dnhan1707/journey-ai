@@ -99,3 +99,39 @@
     }
   }
   
+/* Trash icon styling */
+.trash-button {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card1:hover .trash-button {
+  opacity: 1;
+}
+
+.trash-icon {
+  color: #ffffff; /* Optional: Change the color of the trash icon */
+}
+
+.remove-option {
+  background-color: #666666;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.remove-option:hover {
+  background-color: rgb(234 88 12);
+  transform: scale(1.05);
+}

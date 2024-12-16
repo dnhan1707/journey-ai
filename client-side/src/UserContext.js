@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import { doc, updateDoc, arrayUnion, setDoc, getDoc } from "firebase/firestore";
+import { doc, getDoc, getDocs, setDoc, serverTimestamp, collection, deleteDoc } from "firebase/firestore";
 import { db } from "./firebase/firebase.js";
 
 // Create a UserContext
@@ -8,99 +8,120 @@ const UserContext = createContext();
 // Create a provider component
 export const UserProvider = ({ children }) => {
   const [userUid, setUserUid] = useState(null);
-  const [city, setCity] = useState(null);
-  const [duration, setDuration] = useState(null);
-  const [tripName, setTripName] = useState(null);
-  const [totalEstimation, setTotalEstimation] = useState(null);
-  const [itinerary, setItinerary] = useState([]);
+  const [planToSave, setPlanToSave] = useState(null);
+  const [planIdJustSaved, setPlanIdJustSaved] = useState(null);
 
-  const addNewActivity = (activity, dayIndex, activityIndex) => {
-    setItinerary(prevItinerary => {
-      const updatedItinerary = [...prevItinerary];
-  
-      if (dayIndex >= 0 && dayIndex < updatedItinerary.length) {
-        // Ensure activities are added at the correct position
-        const dayActivities = [...updatedItinerary[dayIndex].activities];
-        dayActivities[activityIndex] = activity;
-        updatedItinerary[dayIndex].activities = dayActivities;
-      }
-  
-      return updatedItinerary;
-    });
-  };
-  
-
-  // const resetActivity = () => {
-  //   setActivities([]);
-  // }
-  const getSavedPlanCount = async (userUid) => {
-    const userDocRef = doc(db, "users", userUid);
-    const userDocSnap = await getDoc(userDocRef);
-    if (userDocSnap.exists()) {
-      const userData = userDocSnap.data();
-      const savedPlanCount = userData.saved_plans ? userData.saved_plans.length : 0;
-      // console.log(`Number of saved plans for user ${userUid}:`, savedPlanCount);
-      return savedPlanCount;
-    } else {
-        // console.log("No such document!");
-        return 0;
+  // Save a plan to the user's saved plans collection
+  const savePlan = async () => {
+    if (!userUid || !planToSave) {
+      console.error("User UID or plan to save is missing");
+      return;
     }
-  }
 
-  const savePlan = async () => {    
-    // console.log("Itinerary that is going to get saved");
-    // console.log(itinerary);
-    const savedPlanCount = await getSavedPlanCount(userUid);
+    const savedPlansRef = collection(db, "users", userUid, "saved_plans");
+    const newPlanRef = doc(savedPlansRef);
 
-    const newPlan = {
-        city: city,
-        duration: duration,
-        itinerary: itinerary, // Correctly use the `itinerary` state
-        tripname: tripName,
-        plan_id: savedPlanCount + 1,
-        estimated_total: totalEstimation
-    };
-
-    const userRef = doc(db, "users", userUid);
-
-    try { 
-      const userDoc = await getDoc(userRef);
-      if(!userDoc.exists()){
-        // Create a new document if it doesn't exist
-        await setDoc(userRef, {
-            saved_plans: [newPlan],  // Initialize with the new plan
-        });
-        // console.log("User document created with new plan");
-      } else {
-        // Document exists, add new plan to the existing document
-        await updateDoc(userRef, {
-            saved_plans: arrayUnion(newPlan)
-        });
-        // console.log("New plan added to existing document");
-      }
-      // Resetting the states after saving
-      setCity(null);
-      setDuration(null);
-      setTripName(null);
-      setTotalEstimation(null);
-      setItinerary([]);
-      // resetActivity();  // Clear activities after saving the plan
+    try {
+      await setDoc(newPlanRef, { ...planToSave, timestamp: serverTimestamp() });
+      // console.log("plan id just save: ", newPlanRef.id);
+      setPlanIdJustSaved(newPlanRef.id);
     } catch (error) {
       console.error("Error saving plan:", error);
     }
-  }
+  };
+
+  // Get all saved plans for the user
+  const getSavedPlans = async () => {
+    if (!userUid) {
+      console.error("User UID is missing");
+      return {};
+    }
+
+    const savedPlansRef = collection(db, "users", userUid, "saved_plans");
+
+    try {
+      const querySnapshot = await getDocs(savedPlansRef);
+      const plans = querySnapshot.docs.reduce((acc, doc) => {
+        acc[doc.id] = doc.data();
+        return acc;
+      }, {});
+
+      return plans;
+    } catch (error) {
+      console.error("Error getting saved plans:", error);
+      return {};
+    }
+  };
+
+  // Get a specific plan by its ID
+  const getPlanById = async (planId) => {
+    if (!userUid || !planId) {
+      console.error("User UID or plan ID is missing");
+      return null;
+    }
+
+    const planRef = doc(db, "users", userUid, "saved_plans", planId);
+
+    try {
+      const planDoc = await getDoc(planRef);
+      if (planDoc.exists()) {
+        return planDoc.data();
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error("Error getting plan by ID:", error);
+      return null;
+    }
+  };
+
+  // Get all saved plan IDs for the user
+  const getSavedPlanId = async () => {
+    if (!userUid) {
+      console.error("User UID is missing");
+      return [];
+    }
+
+    const savedPlansRef = collection(db, "users", userUid, "saved_plans");
+
+    try {
+      const querySnapshot = await getDocs(savedPlansRef);
+      return querySnapshot.docs.map(doc => doc.id);
+    } catch (error) {
+      console.error("Error getting saved plan IDs:", error);
+      return [];
+    }
+  };
+
+  // Remove a specific plan by its ID
+  const removePlan = async (planId) => {
+    if (!userUid) {
+      console.error("User UID is missing");
+      return;
+    }
+
+    if(!planId){
+      console.error("Plan ID is missing");
+      return;
+    }
+
+    const planRef = doc(db, "users", userUid, "saved_plans", planId);
+
+    try {
+      await deleteDoc(planRef);
+    } catch (error) {
+      console.error("Error removing plan:", error);
+    }
+  };
 
   return (
     <UserContext.Provider value={{
-        userUid, setUserUid,
-        city, setCity,
-        duration, setDuration,
-        tripName, setTripName,
-        itinerary, setItinerary,
-        totalEstimation, setTotalEstimation,
-        addNewActivity, savePlan,
-      }}>
-        {children}
+      userUid, setUserUid,
+      planToSave, setPlanToSave,
+      planIdJustSaved, setPlanIdJustSaved,
+      savePlan, getSavedPlans, getSavedPlanId, removePlan, getPlanById,
+    }}>
+      {children}
     </UserContext.Provider>
   );
 };

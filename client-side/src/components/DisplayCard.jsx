@@ -7,42 +7,35 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 import Card from "./Card.jsx";
 import "../css/Card.css";
 import "../css/Day.css";
-import { useUser } from "../UserContext.js";
 
 library.add(fas, far, fab);
 
-function createCard(activity, activityIndex, dayindex) {
-    return <Card 
-    activity={activity} 
-    activityIndex={activityIndex} 
-    dayindex={dayindex}
-    />;
+// Function to create a Card component for each activity
+function createCard(activity, activityIndex, dayIndex) {
+    return (
+        <Card 
+            key={activityIndex}
+            activity={activity} 
+            activityIndex={activityIndex} 
+            day={dayIndex + 1} // Pass the day as a prop
+        />
+    );
 }
 
-function DisplayCard({ response, onCardDataFetched  }) {
+function DisplayCard({ response, onCardDataFetched }) {
     const [parsedResponse, setParsedResponse] = useState(null);
     const [open, setOpen] = useState([]);
-    const { setItinerary } = useUser();
 
     // Parsing the response only on initial render
     useEffect(() => {
         try {
             const parsed = typeof response === 'string' ? JSON.parse(response) : response;
             setParsedResponse(parsed);
-
-            const initialItinerary = parsed.itinerary.map((day, dayIndex) => ({
-                day: dayIndex + 1,
-                activities: day.activities || []
-            }));
-
-            setItinerary(initialItinerary);
-
-            // Initialize the open state based on the number of days in the itinerary
-            setOpen(new Array(parsed.itinerary.length).fill(true)); // Start with all dropdowns closed
+            setOpen(new Array(parsed.itinerary.length).fill(true)); // Start with all dropdowns open
         } catch (error) {
             console.error('Error parsing response:', error);
         }
-    }, [response, setItinerary]);
+    }, [response]);
 
     // Memoized function to toggle dropdown visibility
     const toggleDown = useCallback((index) => {
@@ -57,19 +50,19 @@ function DisplayCard({ response, onCardDataFetched  }) {
         <div className="detail_plan">
             <div id="card-container">
                 {parsedResponse && parsedResponse.itinerary ? (
-                    parsedResponse.itinerary.map((day, dayindex) => (
-                        <div key={dayindex} className="day-card">
-                            <button id="drop-down-days" className="day_plan w-full" type="button" onClick={() => toggleDown(dayindex)}>
+                    parsedResponse.itinerary.map((day, dayIndex) => (
+                        <div key={dayIndex} className="day-card">
+                            <button id="drop-down-days" className="day_plan w-full" type="button" onClick={() => toggleDown(dayIndex)}>
                                 <div className="flex items-center justify-between border-b-2 border-gray-300">
-                                    <h1>Day {dayindex + 1}</h1>
-                                    <FontAwesomeIcon icon={open[dayindex] ? "fa-solid fa-caret-up" : "fa-solid fa-caret-down"} />
+                                    <h1>Day {dayIndex + 1}</h1>
+                                    <FontAwesomeIcon icon={open[dayIndex] ? "fa-solid fa-caret-up" : "fa-solid fa-caret-down"} />
                                 </div>
                             </button>
-                            {open[dayindex] && (
+                            {open[dayIndex] && (
                                 <div className="dropdown">
                                     <ul>
                                         {day.activities && day.activities.map((activity, activityIndex) => (
-                                            createCard(activity, activityIndex, dayindex)
+                                            createCard(activity, activityIndex, dayIndex)
                                         ))}
                                     </ul>
                                 </div>

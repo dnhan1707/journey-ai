@@ -1,6 +1,6 @@
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Slider from '@mui/material/Slider';
-import Typography from '@mui/material/Typography';
+// import Typography from '@mui/material/Typography';
 import React, { useState } from 'react';
 
 const theme = createTheme({

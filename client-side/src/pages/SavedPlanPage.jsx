@@ -1,55 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import SavedPlanCard from "../components/SavedPlanCard.jsx";
 import Header from "../components/Header.jsx";
-import { db } from '../firebase/firebase.js';
-import { doc, getDoc } from 'firebase/firestore';
 import { useUser } from '../UserContext.js';
 
 function SavedPlanPage() {
   const [savedPlan, setSavedPlan] = useState(null);
-  const { userUid } = useUser();
-
-  // Function to fetch user's saved plans by userId
-  const fetchUserSavedPlansById = async (userId) => {
-    try {
-      // Reference to the user's document
-      const userDocRef = doc(db, "users", userId);
-      
-      // Fetch the document
-      const userDoc = await getDoc(userDocRef);
-      
-      if (userDoc.exists()) {
-        // Document data
-        // console.log("User Uid", userId);
-        // console.log("User Data:", userDoc.data().saved_plans);
-        return userDoc.data();
-      } else {
-        // console.log("No such document!");
-        return null;
-      }
-    } catch (error) {
-      console.error("Error fetching user document:", error);
-      return null;
-    }
-  };
+  const [planIds, setPlanIds] = useState([]);
+  const { userUid, getSavedPlans } = useUser();
 
   useEffect(() => {
     const fetchData = async () => {
-      const FirebaseuserID = userUid; // Should be a string to match your server logic
-      const data = await fetchUserSavedPlansById(FirebaseuserID);
+      const data = await getSavedPlans();
+
       setSavedPlan(data);
+      setPlanIds(Object.keys(data)); // Set planIds with the keys of the savedPlan object
     };
 
     fetchData();
   }, [userUid]);
 
-  // if (savedPlan === null) {
-  //   return <p>Loading...</p>; // Show a loading state while data is being fetched
-  // }
+  const handleRemove = (planId) => {
+    setSavedPlan((prevSavedPlan) => {
+      const updatedSavedPlan = {...prevSavedPlan};
+      delete updatedSavedPlan[planId];
+      return updatedSavedPlan;
+    })
+    setPlanIds((prevPlanIds) => prevPlanIds.filter((id) => id !== planId))
+  }
 
-  // if (savedPlan && !savedPlan.saved_plans) {
-  //   return <p>No saved plans found.</p>; // Display a message if no saved plans exist
-  // }
 
   return (
     <>
@@ -67,18 +45,22 @@ function SavedPlanPage() {
           </div>
 
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mx-auto max-w-screen-lg py-20'>
-            {savedPlan?.saved_plans?.map(plan => (
-              <div key={plan.plan_id}>
-                <SavedPlanCard
-                  tripname={plan.tripname}
-                  city={plan.city}
-                  days={plan.duration}
-                  userId={userUid}
-                  planId={plan.plan_id}
-                  saved_plans_data={savedPlan.saved_plans}
-                />
-              </div>
-            ))}
+            {
+              savedPlan && planIds.map((planId) => {
+                const plan = savedPlan[planId];
+                if (!plan) return null;
+
+                return (
+                  <SavedPlanCard
+                    tripname={plan.tripName}
+                    city={plan.city}
+                    days={plan.duration}
+                    planId={planId}
+                    onRemove={handleRemove}
+                  />
+                )
+              })
+            }
           </div>
         </div>
       </div>

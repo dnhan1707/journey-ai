@@ -42,10 +42,12 @@ function Header() {
               <FontAwesomeIcon icon="fa-solid fa-hand-holding-dollar" />
               <span className="ml-2 text-gray-600">Buy me a coffee?</span>
             </button>
-            <button className="flex items-center" onClick={navigateToSavePlanPage}>
-              <FontAwesomeIcon icon="fa-solid fa-box-archive" />
-              <span className="ml-2 text-gray-600">Saved Plan</span>
-            </button>
+            {userUid && 
+              <button className="flex items-center" onClick={navigateToSavePlanPage}>
+                <FontAwesomeIcon icon="fa-solid fa-box-archive" />
+                <span className="ml-2 text-gray-600">Saved Plan</span>
+              </button>
+    }
             <SignOutButton />
           </div>
         )}

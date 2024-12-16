@@ -24,7 +24,7 @@ function GenerateDestinationCard(props) {
         const fetchPlaceDetailData = async () => {
             try {
                 setPlaceId(props.activity.place_detail.place_id);
-                setPlaceName(props.activity.location_name);
+                setPlaceName(props.activity.name);
                 setPhotoUrl(props.activity.place_detail.photo_url);
                 setPrice(props.activity.place_detail.price_level);
                 setIsDataFetched(true); // Mark data as fetched
@@ -34,7 +34,7 @@ function GenerateDestinationCard(props) {
         };
 
         fetchPlaceDetailData();
-    }, [props.activity.location_name, isDataFetched]);
+    }, [props.activity.name, isDataFetched]);
 
     const iconDefinition = findIconDefinition({ iconName: props.activity.type });
 
@@ -55,7 +55,7 @@ function GenerateDestinationCard(props) {
                             className="font-semibold text-lg  focus:outline-none transition-colors duration-200 hover:text-orange-600"
                             onClick={cardDetailClicked}
                         >
-                            <FontAwesomeIcon icon={iconDefinition} /> - {placeName}
+                            <FontAwesomeIcon icon={iconDefinition} /> - {props.activity.name}
                         </button>
                         <p className="card-description w-5/6 text-slate-500 text-base mt-1">{props.activity.description}</p>
                     </div>
@@ -63,7 +63,7 @@ function GenerateDestinationCard(props) {
                         <div className="relative w-fit cursor-default items-center gap-1.5 rounded-full border border-solid border-gray-200 bg-white px-3 py-0.5 text-xs md:text-sm shadow-sm transition-shadow duration-200 hover:shadow-md">
                             <p className="text-gray-500">{props.activity.duration}</p>
                         </div>
-                        <p className="px-3"> • <FontAwesomeIcon icon="fa-solid fa-dollar-sign" />{price}</p> 
+                        <p className="px-3"> • <FontAwesomeIcon icon="fa-solid fa-dollar-sign" />{props.activity.price_level}</p> 
                     </div>
                 </div>
                 <div className="location_image rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 max-w-[175px] max-h-[175px]">

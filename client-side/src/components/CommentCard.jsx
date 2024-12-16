@@ -24,7 +24,7 @@ function CommentCard({ rate, time, comment }) {
     for (let index = 0; index < totalStar; index++) {
         if(index < filledStar){
             stars[index] = 'filled';
-        } else if (index == filledStar && halfStar){
+        } else if (index === filledStar && halfStar){
             stars[index] = 'half';
         } else {
             stars[index] = 'empty';

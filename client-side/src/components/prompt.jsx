@@ -23,6 +23,7 @@ function journeyCmd(location, numOfPeople, day, theme, specialRequest, budget){
 example (Please keep the same key name, do not change them), 
 :
 {
+    "city": "Pasadena, CA",
     "tripName": "Pasadena Trip", 
     "travelers": ${numOfPeople}, 
     "duration": ${day}, 
