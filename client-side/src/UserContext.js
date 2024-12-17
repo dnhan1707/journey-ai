@@ -11,6 +11,33 @@ export const UserProvider = ({ children }) => {
   const [planToSave, setPlanToSave] = useState(null);
   const [planIdJustSaved, setPlanIdJustSaved] = useState(null);
 
+  const creatNewProfile = async (newUserId) => {
+    const userRef = collection(db, "users", newUserId, "profile");
+    const newProfileRef = doc(userRef, "user_info");
+    await setDoc(newProfileRef, { username: "User"})
+  };
+
+  const handleUserSignUp = (newUserId) => {
+    setUserUid(newUserId);
+    creatNewProfile(newUserId);
+  };
+
+  const getUserName = async () => {
+    const userRef = doc(db, "users", userUid, "profile", "user_info");
+    const userDoc = await getDoc(userRef);
+    if (userDoc.exists()) {
+      return userDoc.data().username;
+    } else {
+      return "User";
+    }
+  }
+
+  const updateUserName = async (newName) => {
+    const userRef = doc(db, "users", userUid, "profile", "user_info");
+    await setDoc(userRef, { username: newName });
+  }
+
+
   // Save a plan to the user's saved plans collection
   const savePlan = async () => {
     if (!userUid || !planToSave) {
@@ -120,6 +147,7 @@ export const UserProvider = ({ children }) => {
       planToSave, setPlanToSave,
       planIdJustSaved, setPlanIdJustSaved,
       savePlan, getSavedPlans, getSavedPlanId, removePlan, getPlanById,
+      creatNewProfile, handleUserSignUp, getUserName, updateUserName
     }}>
       {children}
     </UserContext.Provider>

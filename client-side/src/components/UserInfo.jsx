@@ -1,5 +1,5 @@
 import "../css/UserInfo.css";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useUser } from "../UserContext.js";
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
@@ -8,10 +8,39 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function UserInfo({ likeOption, isInSavedDestinationPage, plan_id }) {
     const currentDate = new Date();
-    const { savePlan, userUid, planIdJustSaved, removePlan } = useUser();
+    const { savePlan, userUid, planIdJustSaved, removePlan, getUserName, updateUserName } = useUser();
     const [openSnackBar, setOpenSnackBar] = useState(false);
     const [liked, setLiked] = usePersistState(likeOption, `liked_${plan_id}`);  
-    
+    const [userName, setUserName] = useState(null); 
+    const [isEditing, setIsEditing] = useState(false);
+
+    useEffect(() => {
+        const fetchUserName = async () => {
+            if(userUid) {
+                const name = await getUserName();
+                setUserName(name);
+            }
+        }
+        fetchUserName();
+    }, [userUid, getUserName]);
+
+    const handleNameChange = (e) => {
+        setUserName(e.target.value);
+    };
+
+    const handleNameSubmit = (e) => {
+        // e.preventDefault();
+        updateUserName(userName);
+        setIsEditing(false);
+    };
+
+    const handleIconClick = () => {
+        if(!userUid) {
+            setOpenSnackBar(true);
+            return;
+        }
+        setIsEditing(true);
+    }
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -78,8 +107,24 @@ function UserInfo({ likeOption, isInSavedDestinationPage, plan_id }) {
                     </svg>
 
                     <div className="user_name_date">
-                        <div className="flex">
-                            <p className="mr-4">User</p> <FontAwesomeIcon icon="fa-regular fa-pen-to-square" />
+                        <div className="flex items-center">
+                            {isEditing ? (
+                                <>
+                                    <input 
+                                        type="text" 
+                                        value={userName} 
+                                        onChange={handleNameChange} 
+                                        onBlur={handleNameSubmit}
+                                        className="border-b-2 border-gray-300 focus:outline-none focus:border-orange-500"
+                                    />
+                                    <button onClick={handleNameSubmit} className="ml-2 text-orange-500">Save</button>
+                                </>
+                            ) : (
+                                <>
+                                    <p className="mr-4">{userName}</p>
+                                    <FontAwesomeIcon icon="fa-regular fa-pen-to-square" onClick={handleIconClick} className="cursor-pointer" />
+                                </>
+                            )}
                         </div>
                         <p>{formattedDate}</p>
                     </div>

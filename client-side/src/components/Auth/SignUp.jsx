@@ -2,11 +2,13 @@ import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Navigate } from "react-router-dom";
 import { auth } from "../../firebase/firebase";
+import { useUser } from "../../UserContext";
 
 function SignUp({ open, onClose }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [redirectToHome, setRedirectToHome] = useState(false);
+    const { handleUserSignUp } = useUser();
 
     if (!open) {
         return null;
@@ -19,7 +21,8 @@ function SignUp({ open, onClose }) {
         }
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                // const user = userCredential.user;
+                const user = userCredential.user;
+                handleUserSignUp(user.uid); // Create a new user profile
                 onClose(); // Close the modal
                 setRedirectToHome(true); // Trigger redirect to homepage
             })
