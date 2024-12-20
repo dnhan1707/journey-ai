@@ -4,7 +4,6 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import { useLocation } from "react-router-dom";
 import "../css/GenerateMap.css"
 import DetailContainer from "../components/DetailContainer.jsx";
-const port = 5000;
 // public token
 mapboxgl.accessToken = process.env.REACT_APP_MAP_BOX;
 
@@ -23,12 +22,25 @@ function GenerateMap() {
     const [parsedResponse, setParsedResponse] = useState(null);
     const location = useLocation(); // location.state.location and location.state.responseData
     const response = location.state.responseData;
+    const [coordArray, setCoordArray] = useState([])
 
     useEffect(() => {
         try {
             const parsed = typeof response === 'string' ? JSON.parse(response) : response;
             setParsedResponse(parsed);
-        } catch (error) {
+            // console.log(parsed)
+
+            const extractCoord = []
+            parsed.itinerary.forEach(day => {
+                day.activities.forEach(activity => {
+                    extractCoord.push(activity.place_detail.location);
+                })
+            })
+
+            setCoordArray(extractCoord)
+
+
+        } catch (error) {   
             console.error('Error parsing response:', error);
         }
     }, [response]);
@@ -40,7 +52,7 @@ function GenerateMap() {
     useEffect(() => {
         const fetchMapData = async () => {
             try {
-                const response = await fetch(`http://localhost:${port}/api/mapbox/map`, {
+                const response = await fetch(`https://journey-ai-olive.vercel.app/api/mapbox/map`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -55,6 +67,8 @@ function GenerateMap() {
                 const data = await response.json();
                 setCenter(data.center);
                 setZoom(data.zoom);
+
+                
             } catch (error) {
                 console.error('Error fetching map data:', error);
             }
@@ -84,18 +98,21 @@ function GenerateMap() {
             });
         }
 
-        if (center) {
-            const lngLat = { lon: center[0], lat: center[1] };
-
-            if (!marker_obj.current) {
-                marker_obj.current = new mapboxgl.Marker({ color: 'red' });
-                marker_obj.current.setLngLat(lngLat);
-                marker_obj.current.addTo(map_obj.current);
-            } else {
-                marker_obj.current.setLngLat(lngLat);
-            }
+    
+       
+        if (coordArray?.length > 0)
+        {
+            coordArray.forEach(coord => {
+                const lngLat = {lng : coord.lng, lat : coord.lat };
+                
+                const marker = new mapboxgl.Marker({color: 'red'});
+                marker.setLngLat(lngLat);
+                marker.addTo(map_obj.current);
+            });
         }
-    }, [center, zoom]);
+        
+    
+    }, [center, zoom, coordArray]);
 
     return (
         <div className="mapPage">

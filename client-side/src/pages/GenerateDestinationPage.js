@@ -39,23 +39,42 @@ function GenerateDestinationPage() {
     const [planData, setPlanData] = useState(null);
     const [center, setCenter] = useState(null);
     const [zoom, setZoom] = useState(null);
+
     const mapRef = useRef(null);
     const mapObj = useRef(null);
     const markerObj = useRef(null);
+    const [coordArray, setCoordArray] = useState([]);
+
     const [city, setCity] = useState('');
     const { userUid, getPlanById } = useUser();
     const { state } = useLocation();
     const planId = state.plan_id;
-
+    // const [isSaved, setisSaved] = useState(false);
     // Fetch plan data
     useEffect(() => {
         const fetchPlanData = async () => {
             const data = await getPlanById(planId);
+
             setPlanData(data);
             if (data && data.itinerary) {
                 setOpen(new Array(data.itinerary.length).fill(true));
+                console.log(data);
+
+                console.log("plan id: ", planId);
+
+                const extractCoord = []
+                data.itinerary.forEach(day => {
+                    day.activities.forEach(activity => {
+                        extractCoord.push(activity.place_detail.location);
+                    })
+                })
+        
+                setCoordArray(extractCoord);
+                console.log(extractCoord);
             }
+    
         };
+
 
         fetchPlanData();
     }, [planId, getPlanById, userUid]);
@@ -66,7 +85,7 @@ function GenerateDestinationPage() {
             setCity(planData.city);
             const fetchMapData = async () => {
                 try {
-                    const response = await fetch("http://localhost:3001/api/mapbox/map", {
+                    const response = await fetch("https://journey-ai-olive.vercel.app/api/mapbox/map", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -78,9 +97,12 @@ function GenerateDestinationPage() {
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
 
+                    console.log("mapdata: ", planData.city);
+
                     const data = await response.json();
                     setCenter(data.center);
                     setZoom(data.zoom);
+
                 } catch (error) {
                     console.error('Error fetching map data:', error);
                 }
@@ -89,6 +111,8 @@ function GenerateDestinationPage() {
             fetchMapData();
         }
     }, [planData]);
+
+
 
     // Initialize the map
     useEffect(() => {
@@ -107,18 +131,17 @@ function GenerateDestinationPage() {
             });
         }
 
-        if (center) {
-            const lngLat = { lon: center[0], lat: center[1] };
-
-            if (!markerObj.current) {
-                markerObj.current = new mapboxgl.Marker({ color: 'red' });
-                markerObj.current.setLngLat(lngLat);
-                markerObj.current.addTo(mapObj.current);
-            } else {
-                markerObj.current.setLngLat(lngLat);
+        if (coordArray?.length > 0)
+            {
+                coordArray.forEach(coord => {
+                    const lngLat = {lng : coord.lng, lat : coord.lat };
+                    
+                    const marker = new mapboxgl.Marker({color: 'red'});
+                    marker.setLngLat(lngLat);
+                    marker.addTo(mapObj.current);
+                });
             }
-        }
-    }, [center, zoom]);
+    }, [center, zoom, coordArray]);
 
     // Toggle dropdown visibility
     const toggleDown = (index) => {
@@ -139,7 +162,15 @@ function GenerateDestinationPage() {
             <div className="detail_container pb-10">
                 <ImageContainer location={city} response={planData}/>
                 <UserInfo likeOption={true} isInSavedDestinationPage={true} />
-
+                {/* <button 
+                    type = "button"     
+                    style={{ display: 'block', backgroundColor: 'red', color: 'white' }} // Debugging styles
+                    onClick={savePlan} 
+                    className="save-plan-btn bg-blue-500 text-white px-4 py-2 rounded mt-4" 
+                    disabled={isSaved}>
+                                        {isSaved ? "Plan Saved" : "Save Plan"}
+                </button> */}
+                
                 <div className="detail_plan">
                     <div id="card-container">
                         {planData && planData.itinerary ? (

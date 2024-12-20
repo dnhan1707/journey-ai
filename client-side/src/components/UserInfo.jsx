@@ -5,6 +5,8 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import usePersistState from "../usePersistState";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart as filledHeart } from '@fortawesome/free-solid-svg-icons'; //has to directly import 
+import { faHeart as voidHeart } from '@fortawesome/free-regular-svg-icons';
 
 function UserInfo({ likeOption, isInSavedDestinationPage, plan_id }) {
     const currentDate = new Date();
@@ -95,7 +97,7 @@ function UserInfo({ likeOption, isInSavedDestinationPage, plan_id }) {
                     variant="filled"
                     sx={{ width: '100%' }}
                 >
-                    Please login or signup to save the itinerary.
+                    Please login or signup to save the itinerary and edit user profile.
                 </Alert>
             </Snackbar>
 
@@ -139,13 +141,13 @@ function UserInfo({ likeOption, isInSavedDestinationPage, plan_id }) {
                     >
                     {
                         isInSavedDestinationPage ? (
-                            <i className={'fa-heart fa-solid text-red-500 text-2xl'}></i>
+                            <FontAwesomeIcon icon={filledHeart} className="text-red-500 text-2xl" />
                         ) : userUid ? (
-                            <i className={`fa-heart ${liked ? 'fa-solid text-red-500' : 'fa-regular text-gray-500'} text-2xl`}></i>
+                            <FontAwesomeIcon icon={liked ? filledHeart : voidHeart} className= {`text-2xl" ${liked ? 'text-red-500' : 'text-gray-500'}`}/>
                         ) : (
-                            <i className="fa-regular fa-heart text-gray-500 text-2xl"></i>
+                            <FontAwesomeIcon icon={voidHeart} className="text-red-500 text-2xl"/>
                         )
-                    }
+                    }     
                     </button>
                 </div>
             </div>
