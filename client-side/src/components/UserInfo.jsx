@@ -21,6 +21,8 @@ function UserInfo({ likeOption, isInSavedDestinationPage, plan_id }) {
             if(userUid) {
                 const name = await getUserName();
                 setUserName(name);
+            } else {
+                setUserName("User");
             }
         }
         fetchUserName();
