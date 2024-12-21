@@ -29,7 +29,7 @@ function SignUp({ open, onClose }) {
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                console.log(errorCode, errorMessage);
+                // console.log(errorCode, errorMessage);
             });
     };
 

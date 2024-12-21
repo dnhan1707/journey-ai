@@ -42,7 +42,7 @@ function MainPage() {
     };
 
     const handleResponse = (data) => {
-        console.log("Response Data:", data);
+        // console.log("Response Data:", data);
         setCommand(null);
         setNumOfPeople(null);
         setDay(null);

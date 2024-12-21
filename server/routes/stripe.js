@@ -15,7 +15,7 @@ export default function createStripeRoutes(stripe) {
                 paymentIntent
             });
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             res.status(500).json({ error: error.message });
         }
     })

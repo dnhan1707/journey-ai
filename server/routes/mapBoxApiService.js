@@ -7,9 +7,9 @@ dotenv.config();
 
 const MAP_BOX_API_KEY = process.env.MAP_BOX_KEY
 
-if(!MAP_BOX_API_KEY){
-    console.log("Not found MAP_BOX_API_KEY");
-}
+// if(!MAP_BOX_API_KEY){
+//     console.log("Not found MAP_BOX_API_KEY");
+// }
 
 router.post("/map", async (req, res) => {
     try {
@@ -34,7 +34,7 @@ router.post("/map", async (req, res) => {
             res.status(400).json({error: "No coordinates found"});
         }
 
-        console.log("MAP BOX API got triggered");
+        // console.log("MAP BOX API got triggered");
 
 
     } catch (error) {

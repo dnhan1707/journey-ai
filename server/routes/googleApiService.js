@@ -23,7 +23,7 @@ router.post("/place_detail", async (req, res) => {
         // console.log("------------->GG PLACE Detail RESPONSE:   ", response.data);
 
         res.json({place_detail: response.data});
-        console.log("PLACE DETAIL API got triggered");
+        // console.log("PLACE DETAIL API got triggered");
 
     } catch (error) {
         console.error('Error fetching data from Google Place Detail API:', error);
@@ -43,7 +43,7 @@ router.post("/photo_search", async (req, res) => {
         
         // No need to make an additional request with axios; simply return the URL
         res.json({ photoUrl: url });
-        console.log("PHOTO SEARCH API got triggered");
+        // console.log("PHOTO SEARCH API got triggered");
 
     } catch (error) {
         console.error('Error fetching data from Google Photo API:', error);
@@ -60,7 +60,7 @@ router.post("/place_search", async (req, res) => {
         const response = await axios.get(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${location}&key=${GG_PLACE_KEY}`)
 
         res.json(response.data);
-        console.log("PLACE SEARCH API got triggered");
+        // console.log("PLACE SEARCH API got triggered");
 
     } catch (error) {
         console.error('Error fetching data from Google Places API:', error);

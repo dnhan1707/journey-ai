@@ -24,22 +24,22 @@ const model = genAI.getGenerativeModel({
 router.post("/gemini_response", async (req, res) => {
     try {
         const { prompt } = req.body; // Correctly destructure the prompt
-        console.log("PROMPT:  ");
-        console.log(prompt);
+        // console.log("PROMPT:  ");
+        // console.log(prompt);
 
         const result = await model.generateContent(prompt);
         const response = result.response;
         const text = response.text();
-        if(!text){
-            console.log("No response")
-        }
+        // if(!text){
+        //     console.log("No response")
+        // }
 
-        if(!prompt){
-            console.log("No prompt")
-        }
+        // if(!prompt){
+        //     console.log("No prompt")
+        // }
 
         res.json({ message: text });
-        console.log("GEMINI API got triggered");
+        // console.log("GEMINI API got triggered");
 
 
     } catch (error) {

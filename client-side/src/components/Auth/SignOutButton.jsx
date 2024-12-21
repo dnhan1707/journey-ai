@@ -4,8 +4,8 @@ import { auth } from "../../firebase/firebase";
 function SignOutButton(){
     const handleSignOut = () => {
         signOut(auth)
-        .then(() =>console.log("Sign out"))
-        .catch((err) => console.log(err));
+        // .then(() =>console.log("Sign out"))
+        // .catch((err) => console.log(err));
     }
 
     return (

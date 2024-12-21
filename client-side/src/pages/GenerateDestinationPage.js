@@ -58,9 +58,9 @@ function GenerateDestinationPage() {
             setPlanData(data);
             if (data && data.itinerary) {
                 setOpen(new Array(data.itinerary.length).fill(true));
-                console.log(data);
+                // console.log(data);
 
-                console.log("plan id: ", planId);
+                // console.log("plan id: ", planId);
 
                 const extractCoord = []
                 data.itinerary.forEach(day => {
@@ -70,7 +70,7 @@ function GenerateDestinationPage() {
                 })
         
                 setCoordArray(extractCoord);
-                console.log(extractCoord);
+                // console.log(extractCoord);
             }
     
         };
@@ -97,7 +97,7 @@ function GenerateDestinationPage() {
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
 
-                    console.log("mapdata: ", planData.city);
+                    // console.log("mapdata: ", planData.city);
 
                     const data = await response.json();
                     setCenter(data.center);
