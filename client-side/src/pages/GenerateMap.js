@@ -33,7 +33,10 @@ function GenerateMap() {
             const extractCoord = []
             parsed.itinerary.forEach(day => {
                 day.activities.forEach(activity => {
-                    extractCoord.push(activity.place_detail.location);
+                    const { lng, lat } = activity.place_detail.location;
+                    if (!isNaN(lng) && !isNaN(lat)) {
+                        extractCoord.push(activity.place_detail.location);
+                    }
                 })
             })
 
