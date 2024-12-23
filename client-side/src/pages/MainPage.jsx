@@ -12,6 +12,7 @@ import journeyCmd from '../components/prompt.jsx';
 import LoadingPage from '../components/LoadingPage.jsx';
 import CustomizeOptions from '../components/CustomizeOptions.jsx';
 import Header from '../components/Header.jsx';
+import SpecialRequest from '../components/SpecialReqest.jsx';
 
 function MainPage() {
     const [location, setLocation] = useState(null);
@@ -42,7 +43,7 @@ function MainPage() {
     };
 
     const handleResponse = (data) => {
-        // console.log("Response Data:", data);
+        console.log("Response Data:", data);
         setCommand(null);
         setNumOfPeople(null);
         setDay(null);
@@ -114,15 +115,16 @@ function MainPage() {
                         </div>
 
                         <div className="flex items-center justify-center">
-                            <div className="w-1/2 max-w-lg mx-2">
-                                <LocationInput setLocation={setLocation} />
+                            <div className="flex w-full max-w-2xl mx-2">
+                                <LocationInput className="flex-1 w-full" setLocation={setLocation} />
+                                <SpecialRequest className="flex-1 w-full ml-4" setSpecialRequest={setSpecialRequest} />
                             </div>
                             <div className="flex-shrink-0 mx-2">
                                 <button
                                     className="bg-orange-500 p-3 ring-orange-500 focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm text-center inline-flex items-center dark:bg-orange-500 dark:hover:bg-orange-700 dark:focus:ring-white text-white"
                                     onClick={handleOpenCustomizeBox}
                                 >
-                                    Personalize
+                                    Filter
                                     <svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
                                     </svg>
