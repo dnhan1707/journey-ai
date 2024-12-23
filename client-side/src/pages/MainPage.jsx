@@ -12,7 +12,7 @@ import journeyCmd from '../components/prompt.jsx';
 import LoadingPage from '../components/LoadingPage.jsx';
 import CustomizeOptions from '../components/CustomizeOptions.jsx';
 import Header from '../components/Header.jsx';
-import SpecialRequest from '../components/SpecialReqest.jsx';
+import SpecialRequest from '../components/SpecialRequest.jsx';
 
 function MainPage() {
     const [location, setLocation] = useState(null);
