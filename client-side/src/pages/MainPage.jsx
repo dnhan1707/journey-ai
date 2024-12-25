@@ -114,12 +114,12 @@ function MainPage() {
                             <img className="landing-icon" src={"notion-icon.png"} alt='journeyAI Icon' />
                         </div>
 
-                        <div className="flex items-center justify-center">
-                            <div className="flex w-full max-w-2xl mx-2">
-                                <LocationInput className="flex-1 w-full" setLocation={setLocation} />
-                                <SpecialRequest className="flex-1 w-full ml-4" setSpecialRequest={setSpecialRequest} />
+                        <div className="flex flex-col md:flex-row items-center justify-center">
+                            <div className="flex flex-col md:flex-row w-full max-w-2xl mx-2">
+                                <LocationInput className="flex-1 w-full md:mb-4" setLocation={setLocation} />
+                                <SpecialRequest className="flex-1 w-full ml-4 md:mt-4" setSpecialRequest={setSpecialRequest} />
                             </div>
-                            <div className="flex-shrink-0 mx-2">
+                            <div className="flex-shrink-0 mx-2 mt-4 md:mt-0">
                                 <button
                                     className="bg-orange-500 p-3 ring-orange-500 focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm text-center inline-flex items-center dark:bg-orange-500 dark:hover:bg-orange-700 dark:focus:ring-white text-white"
                                     onClick={handleOpenCustomizeBox}
