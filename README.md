@@ -1,5 +1,5 @@
 # 🌍 Journey AI  
-**AI-powered travel planner with 7,000+ users**
+**AI-powered travel planner with 400+ users**
 
 Journey AI helps travelers instantly create personalized itineraries with the power of AI. Whether you’re planning a quick city escape or a week-long adventure, Journey AI crafts detailed, smart, and customizable plans tailored to your style.  
 
@@ -55,3 +55,4 @@ Questions or suggestions? Reach us at [support@journeyai.com](mailto:support@jou
 ## 📜 License  
 
 This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details.  
+
